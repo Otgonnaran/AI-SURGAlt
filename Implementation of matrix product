@@ -1,0 +1,50 @@
+import numpy as np
+a_ndarray = np.array([[-1, 2, 3], [4, -5, 6], [7, 8, -9]])
+b_ndarray = np.array([[0, 2, 1], [0, 2, -8], [2, 9, -1]])
+
+result_matmul = np.matmul(a_ndarray, b_ndarray)
+result_dot = np.dot(a_ndarray, b_ndarray)
+result_at = a_ndarray @ b_ndarray
+
+#Problem 3: Implementation of a Certain Element & Matrix Multiplication Function
+def calculate_element(a, b, i, j):
+    return sum(a[i, k] * b[k, j] for k in range(a.shape[1]))
+
+def matrix_multiply(a, b):
+    if a.shape[1] != b.shape[0]:
+        raise ValueError("Matrix multiplication is not defined for the given matrices.")
+    
+    result = np.zeros((a.shape[0], b.shape[1]))
+
+    for i in range(a.shape[0]):
+        for j in range(b.shape[1]):
+            result[i, j] = calculate_element(a, b, i, j)
+
+    return result
+
+result_scratch = matrix_multiply(a_ndarray, b_ndarray)
+
+#Problem 5: Judging Undefined Matrix Product
+def matrix_multiply_safe(a, b):
+    if a.shape[1] != b.shape[0]:
+        raise ValueError("Matrix multiplication is not defined for the given matrices.")
+    
+    result = np.zeros((a.shape[0], b.shape[1]))
+
+    for i in range(a.shape[0]):
+        for j in range(b.shape[1]):
+            result[i, j] = calculate_element(a, b, i, j)
+
+    return result
+
+try:
+    result_safe = matrix_multiply_safe(d_ndarray, e_ndarray)
+except ValueError as e:
+    print(e)
+
+#Problem 6: Transposition and Matrix Product
+e_transposed = np.transpose(e_ndarray)
+result_transposed = matrix_multiply(a_ndarray, e_transposed)
+
+
+
